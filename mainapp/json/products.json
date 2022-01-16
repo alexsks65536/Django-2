@@ -1,0 +1,152 @@
+[
+  {
+    "category": "Лампы",
+    "name": "Лампа настенная1",
+    "description": "Классная лампа",
+    "short_description": "Супер цена",
+    "price": 3455,
+    "price_with_discount": "4512",
+    "quantity": "65",
+    "image": "products_images/product-11.jpg"
+  },
+  {
+    "category": "Лампы",
+    "name": "Лампа настольная2",
+    "description": "Классная лампа",
+    "short_description": "Супер цена",
+    "price": 5556,
+    "price_with_discount": "3245",
+    "quantity": "65",
+    "image": "products_images/product-31.jpg"
+  },
+  {
+    "category": "Лампы",
+    "name": "Лампа из 90-х3",
+    "description": "Классная лампа",
+    "short_description": "Супер цена",
+    "price": 4567,
+    "price_with_discount": "2344",
+    "quantity": "61",
+    "image": "products_images/product-5-sm.jpg"
+  },
+  {
+    "category": "Лампы",
+    "name": "Лампа настенная4",
+    "description": "Классная лампа2",
+    "short_description": "Супер цена",
+    "price": 5775,
+    "price_with_discount": "3465",
+    "quantity": "65",
+    "image": "products_images/product-41.jpg"
+  },
+  {
+    "category": "Лампы",
+    "name": "Лампа настольная5",
+    "description": "Классная лампа",
+    "short_description": "Супер цена",
+    "price": 5887,
+    "price_with_discount": "676",
+    "quantity": "102",
+    "image": "products_images/product-1.jpg"
+  },
+  {
+    "category": "Лампы",
+    "name": "Лампа из 90-х6",
+    "description": "Классная лампа",
+    "short_description": "Супер цена",
+    "price": 4564.22,
+    "price_with_discount": "3455",
+    "quantity": "20",
+    "image": "products_images/product-5-sm.jpg"
+  },
+  {
+    "category": "Лампы",
+    "name": "Лампа настенная7",
+    "description": "Классная лампа",
+    "short_description": "Супер цена",
+    "price": 5234,
+    "price_with_discount": "5687",
+    "quantity": "36",
+    "image": "products_images/product-11.jpg"
+  },
+  {
+    "category": "Лампы",
+    "name": "Лампа настольная8",
+    "description": "Классная лампа",
+    "short_description": "Супер цена",
+    "price": 5888,
+    "price_with_discount": "9887",
+    "quantity": "25",
+    "image": "products_images/product-31.jpg"
+  },
+  {
+    "category": "Лампы",
+    "name": "Лампа из 90-х9",
+    "description": "Классная лампа",
+    "short_description": "Супер цена",
+    "price": 4456,
+    "price_with_discount": "2500",
+    "quantity": "65",
+    "image": "products_images/product-5-sm.jpg"
+  },
+  {
+    "category": "Лампы",
+    "name": "Лампа настенная10",
+    "description": "Классная лампа",
+    "short_description": "Супер цена",
+    "price": 5243,
+    "price_with_discount": "4500",
+    "quantity": "65",
+    "image": "products_images/product-11.jpg"
+  },
+  {
+    "category": "Лампы",
+    "name": "Лампа настольная11",
+    "description": "Классная лампа",
+    "short_description": "Супер цена",
+    "price": 5786,
+    "price_with_discount": "4500",
+    "quantity": "65",
+    "image": "products_images/product-31.jpg"
+  },
+  {
+    "category": "Лампы",
+    "name": "Лампа из 90-х12",
+    "description": "Классная лампа",
+    "short_description": "Супер цена",
+    "price": 4033,
+    "price_with_discount": "2500",
+    "quantity": "65",
+    "image": "products_images/product-5-sm.jpg"
+  },
+  {
+    "category": "Столы",
+    "name": "Стол из 90-х",
+    "description": "Стол из дерева",
+    "short_description": "Супер цена",
+    "price": 5876,
+    "price_with_discount": "4500",
+    "quantity": "65",
+    "image": "products_images/slider-hotdeal.jpg"
+  },
+  {
+    "category": "Стулья",
+    "name": "Стул из 90-х",
+    "description": "Не оторваться",
+    "short_description": "Супер цена",
+    "price": 5235,
+    "price_with_discount": "4500",
+    "quantity": "65",
+    "image": "products_images/product-4.jpg"
+  },
+  {
+    "category": "Диваны",
+    "name": "Диван тканевый",
+    "description": "для дома и офиса",
+    "short_description": "Супер цена",
+    "price": 5976,
+    "price_with_discount": "14500",
+    "quantity": "65",
+    "image": "products_images/product-3-sm.jpg"
+  }
+]
