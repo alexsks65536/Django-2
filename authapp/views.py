@@ -11,6 +11,8 @@ from basketapp.models import Basket
 from django.core.mail import send_mail
 from django.conf import settings
 from authapp.models import ShopUser
+from django.db import transaction
+from authapp.forms import ShopUserProfileEditForm
 
 
 def login(request):
@@ -63,21 +65,6 @@ def register(request):
     return render(request, "authapp/register.html", content)
 
 
-def edit(request):
-    title = "редактирование"
-    if request.method == "POST":
-        edit_form = ShopUserEditForm(request.POST, request.FILES, instance=request.user)
-        if edit_form.is_valid():
-            edit_form.save()
-            return HttpResponseRedirect(reverse("auth:edit"))
-    else:
-        edit_form = ShopUserEditForm(instance=request.user)
-
-    content = {"title": title, "edit_form": edit_form}
-
-    return render(request, "authapp/edit.html", content)
-
-
 def send_verify_mail(user):
     verify_link = reverse("auth:verify", args=[user.email, user.activation_key])
 
@@ -110,3 +97,24 @@ def verify(request, email, activation_key):
     except Exception as e:
         print(f"error activation user : {e.args}")
         return HttpResponseRedirect(reverse("main"))
+
+
+@transaction.atomic
+def edit(request):
+    title = "редактирование"
+
+    if request.method == "POST":
+        edit_form = ShopUserEditForm(request.POST, request.FILES, instance=request.user)
+        profile_form = ShopUserProfileEditForm(
+            request.POST, instance=request.user.shopuserprofile
+        )
+        if edit_form.is_valid() and profile_form.is_valid():
+            edit_form.save()
+            return HttpResponseRedirect(reverse("auth:edit"))
+    else:
+        edit_form = ShopUserEditForm(instance=request.user)
+        profile_form = ShopUserProfileEditForm(instance=request.user.shopuserprofile)
+
+    content = {"title": title, "edit_form": edit_form, "profile_form": profile_form}
+
+    return render(request, "authapp/edit.html", content)
