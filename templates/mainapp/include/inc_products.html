@@ -1,0 +1,13 @@
+{% load static %}
+{% for product in products %}
+	<div class="block">
+		<a href="#"><img src="/media/{{ product.image }}" alt="{{ product.short_desc }}" width="370px" height="370px">
+			<div class="text">
+				<img src="{% static 'img/icon-hover.png' %}" alt="img">
+				<h3>{{ product.category.name }}</h3>
+				<h4>{{ product.name }}</h4>
+				<p>{{ product.description }}</p>
+			</div>
+		</a>
+	</div>
+{% endfor %}
