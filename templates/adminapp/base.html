@@ -9,13 +9,12 @@
         {% endblock %}
     </title>
     {% block css %}
-        <link rel="stylesheet" href="{% static 'bootstrap.min.css' %}">
-        <link rel="stylesheet" href="{% static 'style.css' %}">
+        {% load bootstrap3 %}
+        {% bootstrap_css %}
+        <link rel="stylesheet" type="text/css" href="{% static 'style.css' %}">
         <link rel="stylesheet" href="{% static 'fonts/font-awesome/css/font-awesome.css' %}">
     {% endblock %}
-
-    {% block js %}
-    {% endblock %}
+    {% bootstrap_javascript jquery='full' %}
 </head>
 <body>
   <div class="admin_container">

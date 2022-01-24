@@ -1132,7 +1132,7 @@ td:first-child {
 	text-shadow: 2px 2px 4px rgb(128, 136, 255);
 }
 
-.basket_container div{
+.basket_container {
 	width: 80%;
 	margin: 10%;
 }
@@ -1147,15 +1147,30 @@ td:first-child {
 	padding: 10px 13px;
 }
 
-.btn-round button{
-	color: #8c8c8c;
+.btn-round {
 	font-size: 14px;
+	
 }
 
 .basket_list {
-	width: 780px;
+	width: 80%;
 }
+
+.basket_record {
+	width: 80%;
+}
+
 .category_name {
-	color: #1b1b1b;
+	color: #11035c;
 	font-size: 14px;
+}
+
+.product_name div{
+	color: #8c8c8c;
+	font-size: 14px;
+	font-weight: 700;
+	text-align: right;
+	text-transform: uppercase;
+	text-decoration: none;
+	padding: 10px 13px;
 }
