@@ -1,6 +1,11 @@
+import os
 import random
+
+from django.core.serializers import json
 from django.shortcuts import render
 from django.template.defaultfilters import title
+
+from .management.commands.fill_db import JSON_PATH
 from .models import ProductCategory, Product
 from django.shortcuts import get_object_or_404
 from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
@@ -8,12 +13,13 @@ from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
 
 def main(request):
     title = "главная"
-    products = Product.objects.all()[:4]
+    products = Product.objects.filter(
+        is_active=True, category__is_active=True
+    ).select_related("category")[:3]
 
     content = {
         "title": title,
         "products": products,
-        "menu_links": menu_links,
     }
 
     return render(request, "mainapp/index.html", content)
@@ -126,3 +132,10 @@ def products(request, pk=None, page=1):
     }
 
     return render(request, "mainapp/products.html", content)
+
+
+def load_from_json(file_name):
+    with open(
+        os.path.join(JSON_PATH, file_name + ".json"), "r", errors="ignore"
+    ) as infile:
+        return json.load(infile)
