@@ -1,0 +1,7 @@
+http://192.168.1.220/
+http://192.168.1.220/products/
+http://192.168.1.220/contact/
+http://192.168.1.220/products/category/1/
+http://192.168.1.220/products/category/2/
+http://192.168.1.220/products/category/3/
+http://192.168.1.220/products/category/4/

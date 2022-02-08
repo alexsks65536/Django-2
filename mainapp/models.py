@@ -35,3 +35,10 @@ class Product(models.Model):
     )
     image = models.ImageField(upload_to="products_images", blank=True)
     is_active = models.BooleanField(verbose_name="В каталоге", default=True)
+
+    @staticmethod
+    def get_items():
+        return Product.objects.filter(is_active=True).order_by("category", "name")
+
+    def __str__(self):
+        return self.name

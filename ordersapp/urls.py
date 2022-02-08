@@ -18,6 +18,9 @@ urlpatterns = [
         name="order_update",
     ),
     re_path(
-        r"^delete/(?P<pk>\d+)/$", ordersapp.OrderDelete.as_view(), name="order_delete"
+        r"^delete/(?P<pk>\d+)/$",
+        ordersapp.OrderDelete.as_view(),
+        name="order_delete",
     ),
+    re_path(r"^product/(?P<pk>\d+)/price/$", ordersapp.get_product_price),
 ]

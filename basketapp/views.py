@@ -59,14 +59,13 @@ def basket_edit(request, pk, quantity):
         else:
             new_basket_item.delete()
 
-        basket_items = Basket.objects.filter(user=request.user).order_by(
-            "product__category"
-        )
+    basket_items = Basket.objects.filter(user=request.user).order_by(
+        "product__category"
+    )
 
-        content = {
-            "basket_items": basket_items,
-        }
+    content = {
+        "basket_items": basket_items,
+    }
 
-        result = render_to_string("basketapp/include/inc_basket_list.html", content)
-
-        return JsonResponse({"result": result})
+    result = render_to_string("basketapp/include/inc_basket_list.html", content)
+    return JsonResponse({"result": result})
