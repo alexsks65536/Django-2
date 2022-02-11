@@ -36,7 +36,7 @@ class Order(models.Model):
         verbose_name_plural = "заказы"
 
     def __str__(self):
-        return "Текущий заказ: {}".format(self.id)
+        return f"Текущий заказ: {self.id}"
 
     def get_total_quantity(self):
         items = self.orderitems.select_related()
@@ -49,13 +49,6 @@ class Order(models.Model):
     def get_total_cost(self):
         items = self.orderitems.select_related()
         return sum(list(map(lambda x: x.quantity * x.product.price, items)))
-
-    def get_summary(self):
-        items = self.orderitems.select_related()
-        return {
-            "total_cost": sum(list(map(lambda x: x.quantity * x.product.price, items))),
-            "total_quantity": sum(list(map(lambda x: x.quantity, items))),
-        }
 
     # переопределяем метод, удаляющий объект
     def delete(self):
@@ -83,7 +76,7 @@ class OrderItem(models.Model):
     product = models.ForeignKey(
         Product, verbose_name="продукт", on_delete=models.CASCADE
     )
-    quantity = models.PositiveIntegerField(verbose_name="количество", default=0)
+    quantity = models.PositiveIntegerField(verbose_name="количество", default=1)
 
     def get_product_cost(self):
         return self.product.price * self.quantity
@@ -93,14 +86,14 @@ class OrderItem(models.Model):
         self.product.save()
         super(self.__class__, self).delete()
 
-        # переопределяем метод, сохранения объекта
-
-    def save(self, *args, **kwargs):
-        if self.pk:
-            self.product.quantity -= (
-                self.quantity - self.__class__.get_item(self.pk).quantity
-            )
-        else:
-            self.product.quantity -= self.quantity
-        self.product.save()
-        super(self.__class__, self).save(*args, **kwargs)
+    #     # переопределяем метод, сохранения объекта
+    #
+    # def save(self, *args, **kwargs):
+    #     if self.pk:
+    #         self.product.quantity -= (
+    #             self.quantity - self.__class__.get_item(self.pk).quantity
+    #         )
+    #     else:
+    #         self.product.quantity -= self.quantity
+    #     self.product.save()
+    #     super(self.__class__, self).save(*args, **kwargs)

@@ -8,18 +8,13 @@
            {{ title|title }}
        {% endblock %}
     </title>
-    {% load bootstrap3 %}
-    {% bootstrap_css %}
     {% block css %}
+        {% load bootstrap3 %}
+        {% bootstrap_css %}
         <link rel="stylesheet" type="text/css" href="{% static 'style.css' %}">
         <link rel="stylesheet" href="{% static 'fonts/font-awesome/css/font-awesome.css' %}">
     {% endblock %}
     {% bootstrap_javascript jquery='full' %}
-    {% block js %}
-        <script src="{% static 'js/jquery.formset.js' %}"></script>
-        <script src="{% static 'js/orders_scripts.js' %}"></script>
-        <script src="{% static 'js/main_scripts.js' %}"></script>
-    {% endblock %}
 </head>
 <body>
     <div class="order_container">
