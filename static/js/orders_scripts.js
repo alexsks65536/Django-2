@@ -9,8 +9,7 @@ window.onload = function () {
     var TOTAL_FORMS = parseInt($('input[name="orderitems-TOTAL_FORMS"]').val());
 
     var order_total_quantity = parseInt($('.order_total_quantity').text()) || 0;
-    var order_total_cost = parseFloat($('.order_total_cost').text().\
-                                      replace(',', '.')) || 0;
+    var order_total_cost = parseFloat($('.order_total_cost').text().replace(',', '.')) || 0;
 
     for (var i=0; i < TOTAL_FORMS; i++) {
        _quantity = parseInt($('input[name="orderitems-' + i + '-quantity"]').val());
@@ -43,8 +42,7 @@ window.onload = function () {
 
     $('.order_form').on('click', 'input[type="number"]', function () {
        var target = event.target;
-       orderitem_num = parseInt(target.name.replace('orderitems-', '').\
-                                            replace('-quantity', ''));
+       orderitem_num = parseInt(target.name.replace('orderitems-', '').replace('-quantity', ''));
        if (price_arr[orderitem_num]) {
            orderitem_quantity = parseInt(target.value);
            delta_quantity = orderitem_quantity - quantity_arr[orderitem_num];
@@ -95,8 +93,7 @@ window.onload = function () {
 
     $('.order_form select').change(function () {
        var target = event.target;
-       orderitem_num = parseInt(target.name.replace('orderitems-', '').\
-                                            replace('-product', ''));
+       orderitem_num = parseInt(target.name.replace('orderitems-', '').replace('-product', ''));
        var orderitem_product_pk = target.options[target.selectedIndex].value;
 
        if (orderitem_product_pk) {
@@ -108,11 +105,8 @@ window.onload = function () {
                        if (isNaN(quantity_arr[orderitem_num])) {
                            quantity_arr[orderitem_num] = 0;
                        }
-                       var price_html = '<span>' + \
-                                        data.price.toString().replace('.', ',') +\
-                                        '</span> руб';
-                       var current_tr = $('.order_form table').\
-                                       find('tr:eq(' + (orderitem_num + 1) + ')');
+                       var price_html = '<span>' + data.price.toString().replace('.', ',') +'</span> руб';
+                       var current_tr = $('.order_form table').find('tr:eq(' + (orderitem_num + 1) + ')');
 
                        current_tr.find('td:eq(2)').html(price_html);
 

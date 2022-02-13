@@ -12,13 +12,14 @@ class BasketQuerySet(models.QuerySet):
 
 
 class Basket(models.Model):
-    objects = BasketQuerySet.as_manager()
     user = models.ForeignKey(
         settings.AUTH_USER_MODEL, on_delete=models.CASCADE, related_name="basket"
     )
     product = models.ForeignKey(Product, on_delete=models.CASCADE)
     quantity = models.PositiveIntegerField(verbose_name="количество", default=0)
     add_datetime = models.DateTimeField(verbose_name="время", auto_now_add=True)
+
+    objects = BasketQuerySet.as_manager()
 
     @property
     def product_cost(self):
@@ -47,18 +48,16 @@ class Basket(models.Model):
     def get_item(self, *args, **kwargs):
         return self.objects.get(*args, **kwargs)
 
-    def delete(self):
+    def delete(self, *args, **kwargs):
         self.product.quantity += self.quantity
         self.product.save()
-        super(self.__class__, self).delete()
+        super(self.__class__, self).delete(*args, **kwargs)
 
-    # # переопределяем метод, сохранения объекта
-    # def save(self, *args, **kwargs):
-    #     if self.pk:
-    #         self.product.quantity -= (
-    #             self.quantity - self.__class__.get_item(self.pk).quantity
-    #         )
-    #     else:
-    #         self.product.quantity -= self.quantity
-    #     self.product.save()
-    #     super(self.__class__, self).save(*args, **kwargs)
+    def save(self, *args, **kwargs):
+        if self.pk:
+            old_basket_item = Basket.objects.get(pk=self.pk)
+            self.product.quantity -= self.quantity - old_basket_item.quantity
+        else:
+            self.product.quantity -= self.quantity
+        self.product.save()
+        super(self.__class__, self).save(*args, **kwargs)

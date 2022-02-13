@@ -1,18 +1,17 @@
-from django.contrib.auth.decorators import login_required
 from django.shortcuts import render, HttpResponseRedirect
+from django.db import transaction
+from django.contrib import auth
+from django.urls import reverse
+from django.core.mail import send_mail
+from django.conf import settings
+from django.contrib.auth.decorators import login_required
+
+
+from authapp.models import ShopUser
+from authapp.forms import ShopUserProfileEditForm
 from authapp.forms import ShopUserLoginForm
 from authapp.forms import ShopUserRegisterForm
 from authapp.forms import ShopUserEditForm
-from django.contrib import auth
-from django.urls import reverse
-from django.template.loader import render_to_string
-from django.http import JsonResponse
-from basketapp.models import Basket
-from django.core.mail import send_mail
-from django.conf import settings
-from authapp.models import ShopUser
-from django.db import transaction
-from authapp.forms import ShopUserProfileEditForm
 
 
 def login(request):
@@ -101,6 +100,7 @@ def verify(request, email, activation_key):
         return HttpResponseRedirect(reverse("main"))
 
 
+@login_required
 @transaction.atomic
 def edit(request):
     title = "редактирование"

@@ -28,11 +28,11 @@ def basket(request):
 
 @login_required
 def basket_add(request, pk):
-    product = get_object_or_404(Product, pk=pk)
-    basket = Basket.objects.filter(user=request.user, product=product).first()
-
     if "login" in request.META.get("HTTP_REFERER"):
         return HttpResponseRedirect(reverse("products:product", args=[pk]))
+
+    product = get_object_or_404(Product, pk=pk)
+    basket = Basket.objects.filter(user=request.user, product=product).first()
 
     if not basket:
         basket = Basket(user=request.user, product=product)
@@ -58,6 +58,7 @@ def basket_edit(request, pk, quantity):
         new_basket_item = Basket.objects.get(pk=int(pk))
 
         if quantity > 0:
+            # import pdb; pdb.set_trace()
             new_basket_item.quantity = quantity
             new_basket_item.save()
         else:
@@ -73,23 +74,3 @@ def basket_edit(request, pk, quantity):
 
     result = render_to_string("basketapp/include/inc_basket_list.html", content)
     return JsonResponse({"result": result})
-
-
-@receiver(pre_save, sender=OrderItem)
-@receiver(pre_save, sender=Basket)
-def product_quantity_update_save(sender, update_fields, instance, **kwargs):
-    if update_fields is "quantity" or "product":
-        if instance.pk:
-            instance.product.quantity -= (
-                instance.quantity - sender.get_item(instance.pk).quantity
-            )
-        else:
-            instance.product.quantity -= instance.quantity
-        instance.product.save()
-
-
-@receiver(pre_delete, sender=OrderItem)
-@receiver(pre_delete, sender=Basket)
-def product_quantity_update_delete(sender, instance, **kwargs):
-    instance.product.quantity += instance.quantity
-    instance.product.save()

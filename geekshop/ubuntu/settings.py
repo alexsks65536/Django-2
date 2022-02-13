@@ -16,7 +16,6 @@ from pathlib import Path
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
 
-
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/3.2/howto/deployment/checklist/
 
@@ -26,8 +25,9 @@ SECRET_KEY = "django-insecure-#l!wvlz7u*@%a319333_m!1#44=9v%#w$3%3p)wk4!+odzr)_a
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-# ALLOWED_HOSTS = []
-ALLOWED_HOSTS = ["127.0.0.1"]
+# ALLOWED_HOSTS = ["j772370.myjino.ru"]
+# ALLOWED_HOSTS = ["127.0.0.1"]
+ALLOWED_HOSTS = ["*"]
 
 # Application definition
 
@@ -38,7 +38,6 @@ INSTALLED_APPS = [
     "django.contrib.sessions",
     "django.contrib.messages",
     "django.contrib.staticfiles",
-    "django_extensions",
     "bootstrap3",
     "mainapp",
     "authapp",
@@ -58,11 +57,6 @@ MIDDLEWARE = [
     "django.middleware.clickjacking.XFrameOptionsMiddleware",
     "social_django.middleware.SocialAuthExceptionMiddleware",
 ]
-
-GRAPH_MODELS = {
-    "all_applications": True,
-    "group_models": True,
-}
 
 ROOT_URLCONF = "geekshop.urls"
 
@@ -92,10 +86,25 @@ WSGI_APPLICATION = "geekshop.wsgi.application"
 # https://docs.djangoproject.com/en/3.2/ref/settings/#databases
 
 DATABASES = {
+    # "default": {
+    #     "ENGINE": "django.db.backends.sqlite3",
+    #     "NAME": BASE_DIR / "db.sqlite3",
+    # }
     "default": {
-        "ENGINE": "django.db.backends.sqlite3",
-        "NAME": BASE_DIR / "db.sqlite3",
+        "NAME": "geekshop",
+        "ENGINE": "django.db.backends.postgresql",
+        "USER": "django",
+        "PASSWORD": "geekbrains",
+        "HOST": "localhost",
     }
+    # "default": {
+    #         "ENGINE": "django.db.backends.mysql",
+    #         "NAME": "j772370_geekshop",
+    #         "USER": "046764685_django",
+    #         "PASSWORD": "geekbrains",
+    #         "HOST": "localhost",   # Or an IP Address that your DB is hosted on
+    #         "PORT": "3306",
+    #     }
 }
 
 
@@ -123,7 +132,7 @@ AUTH_PASSWORD_VALIDATORS = [
 
 LANGUAGE_CODE = "en-us"
 
-TIME_ZONE = "UTC"
+TIME_ZONE = "Europe/Moscow"
 
 USE_I18N = True
 
@@ -131,12 +140,10 @@ USE_L10N = True
 
 USE_TZ = True
 
-
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/3.2/howto/static-files/
 
 STATIC_URL = "/static/"
-
 
 STATICFILES_DIRS = (os.path.join(BASE_DIR, "static"),)
 

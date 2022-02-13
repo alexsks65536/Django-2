@@ -50,6 +50,9 @@ class Order(models.Model):
         items = self.orderitems.select_related()
         return sum(list(map(lambda x: x.quantity * x.product.price, items)))
 
+    def get_item(self, *args, **kwargs):
+        return self.objects.get(*args, **kwargs)
+
     # переопределяем метод, удаляющий объект
     def delete(self):
         for item in self.orderitems.select_related():
@@ -69,7 +72,6 @@ class OrderItemQuerySet(models.QuerySet):
 
 
 class OrderItem(models.Model):
-    objects = OrderItemQuerySet.as_manager()
     order = models.ForeignKey(
         Order, related_name="orderitems", on_delete=models.CASCADE
     )
@@ -77,6 +79,8 @@ class OrderItem(models.Model):
         Product, verbose_name="продукт", on_delete=models.CASCADE
     )
     quantity = models.PositiveIntegerField(verbose_name="количество", default=1)
+
+    objects = OrderItemQuerySet.as_manager()
 
     def get_product_cost(self):
         return self.product.price * self.quantity
@@ -86,14 +90,11 @@ class OrderItem(models.Model):
         self.product.save()
         super(self.__class__, self).delete()
 
-    #     # переопределяем метод, сохранения объекта
-    #
-    # def save(self, *args, **kwargs):
-    #     if self.pk:
-    #         self.product.quantity -= (
-    #             self.quantity - self.__class__.get_item(self.pk).quantity
-    #         )
-    #     else:
-    #         self.product.quantity -= self.quantity
-    #     self.product.save()
-    #     super(self.__class__, self).save(*args, **kwargs)
+    def save(self, *args, **kwargs):
+        if self.pk:
+            old_order_item = Order.objects.get(pk=self.pk)
+            self.product.quantity -= self.quantity - old_order_item.quantity
+        else:
+            self.product.quantity -= self.quantity
+        self.product.save()
+        super(self.__class__, self).save(*args, **kwargs)

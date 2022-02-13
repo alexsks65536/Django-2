@@ -1,9 +1,18 @@
+import os
 import random
+
+from django.core.serializers import json
 from django.shortcuts import render
 from django.template.defaultfilters import title
-from .models import ProductCategory, Product
 from django.shortcuts import get_object_or_404
 from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
+from django.dispatch import receiver
+from django.db.models.signals import pre_save
+from django.db import connection
+
+
+from .management.commands.fill_db import JSON_PATH
+from .models import ProductCategory, Product
 
 
 def main(request):
@@ -126,3 +135,27 @@ def products(request, pk=None, page=1):
     }
 
     return render(request, "mainapp/products.html", content)
+
+
+def load_from_json(file_name):
+    with open(
+        os.path.join(JSON_PATH, file_name + ".json"), "r", errors="ignore"
+    ) as infile:
+        return json.load(infile)
+
+
+def db_profile_by_type(prefix, type, queries):
+    update_queries = list(filter(lambda x: type in x["sql"], queries))
+    print(f"db_profile {type} for {prefix}:")
+    [print(query["sql"]) for query in update_queries]
+
+
+@receiver(pre_save, sender=ProductCategory)
+def product_is_active_update_productcategory_save(sender, instance, **kwargs):
+    if instance.pk:
+        if instance.is_active:
+            instance.product_set.update(is_active=True)
+        else:
+            instance.product_set.update(is_active=False)
+
+        db_profile_by_type(sender, "UPDATE", connection.queries)
