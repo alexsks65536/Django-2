@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+{% load static %}
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title>
+      {% block title %}
+        {{ title|title }}
+      {% endblock %}
+    </title>
+    {% load bootstrap3 %}
+    {% bootstrap_css %}
+    {% block css %}
+        <link rel="stylesheet" href="{% static 'style.css' %}">
+        <link rel="stylesheet" href="{% static 'fonts/font-awesome/css/font-awesome.css' %}">
+    {% endblock %}
+    {% bootstrap_javascript jquery='full' %}
+    {% block js %}
+        <script src="{% static 'js/jquery.formset.js' %}"></script>
+        <script src="{% static 'js/orders_scripts.js' %}"></script>
+    {% endblock %}
+  </head>
+  <body>
+    <div class="container">
+      <div class="basket_container">
+        <div class="h2 text-center head">
+          Ваша корзина,
+          {% if user.first_name %}
+            {{ user.first_name|title}}
+          {% else %}
+            Пользователь
+          {% endif %}
+        </div>
+
+        {% block content %}
+        {% endblock %}
+        <div align="right">
+        <button class="btn btn-round">
+          <a href="{% url 'main' %}">на главную</a>
+        </button>
+        </div>
+      </div>
+    </div>
+  </body>
+</html>
